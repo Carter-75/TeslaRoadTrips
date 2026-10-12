@@ -1,0 +1,32 @@
+{
+  "name": "teslaroadtrips",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "node scripts/dev-launcher.js",
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "cd backend && npm install",
+    "build:client": "cd frontend && npm install && npm run build",
+    "postinstall": "npm install --prefix backend && npm install --prefix frontend",
+    "start": "node backend/bin/www",
+    "cap:sync": "cd frontend && npx cap sync",
+    "cap:ios": "cd frontend && npx cap open ios",
+    "cap:android": "cd frontend && npx cap open android",
+    "sync": "py sync-env.py || python3 sync-env.py || python sync-env.py",
+    "push-sync": "npm run sync && git push"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "cookie-parser": "~1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "mongoose": "^8.0.0",
+    "morgan": "~1.10.0",
+    "nodemon": "^3.1.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/core": "^8.5.3"
+  }
+}

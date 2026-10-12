@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tesla Camp Planner: Free Overnight EV Road Trips</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="AI trip planner for Tesla camping, free overnight parking spots, Supercharger buffer guidance, and camp mode guides.">
+  <meta name="theme-color" content="#080b11">
+
+  <!-- iOS PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TeslaCamp">
+  <link rel="apple-touch-icon" href="/icons/icon-192.svg">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="/icons/icon-192.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <script>
+    (function() {
+      console.log('Tesla Camp Planner loaded.');
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'CHECK_IN', project: 'teslaroadtrips' }, '*');
+      }
+    })();
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').catch(function() {});
+      });
+    }
+  </script>
+</head>
+<body class="bg-[#080b11] text-slate-100 font-sans antialiased selection:bg-red-600 selection:text-white min-h-screen overflow-x-hidden">
+  <app-root></app-root>
+</body>
+</html>

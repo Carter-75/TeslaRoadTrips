@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="bgGrad192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0d14"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="redGrad192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e82127"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="42" fill="url(#bgGrad192)"/>
+  <rect x="2" y="2" width="188" height="188" rx="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+  
+  <path d="M96,56 C105,56 120,58 130,62 C132,56 135,51 137,46 C124,42 109,40 96,40 C83,40 68,42 55,46 C57,51 60,56 62,62 C72,58 87,56 96,56 Z" fill="url(#redGrad192)"/>
+  <path d="M96,64 C90,64 81,65 73,67 L73,76 C79,74 88,73 93,73 L93,128 L99,128 L99,73 C104,73 113,74 119,76 L119,67 C111,65 102,64 96,64 Z" fill="url(#redGrad192)"/>
+
+  <!-- Camp Tent / Roofline Glow -->
+  <path d="M52,136 L96,98 L140,136 Z" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linejoin="round"/>
+</svg>

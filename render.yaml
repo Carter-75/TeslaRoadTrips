@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: tesla-camp-planner
+    env: node
+    plan: free
+    buildCommand: npm install && cd backend && npm install && cd ../frontend && npm install && npm run build
+    startCommand: node backend/bin/www
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PRODUCTION
+        value: true
+      - key: PROJECT_NAME
+        value: teslaroadtrips
+      - key: DAILY_PLAN_LIMIT
+        value: 20
+      - key: AI_BASE_URL
+        value: https://api.openai.com/v1
+      - key: AI_MODEL
+        value: gpt-4o-mini
+      - key: MONGODB_URI
+        sync: false
+      - key: AI_API_KEY
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true

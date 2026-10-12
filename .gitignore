@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Build artifacts
+dist/
+frontend/dist/
+.angular/
+
+# Environment configurations and secrets
+.env
+.env.local
+backend/.env
+backend/.env.local
+*.env
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+# Capacitor native build outputs (can be regenerated with npx cap sync)
+frontend/android/app/build/
+frontend/android/.gradle/
+frontend/android/local.properties
+frontend/android/app/src/main/assets/public/
+frontend/ios/App/Pods/
+frontend/ios/App/build/
+frontend/ios/App/App/public/

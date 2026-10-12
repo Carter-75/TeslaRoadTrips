@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Tesla Camp Planner</string>
+    <string name="title_activity_main">Tesla Camp Planner</string>
+    <string name="package_name">com.teslacamp.planner</string>
+    <string name="custom_url_scheme">com.teslacamp.planner</string>
+</resources>
