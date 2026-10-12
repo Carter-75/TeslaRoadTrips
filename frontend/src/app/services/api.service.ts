@@ -6,17 +6,24 @@ export interface DayItinerary {
   day: number;
   title: string;
   routeSummary: string;
+  miles?: number | null;
+  driveTime?: string;
+  elevationProfile?: string;
   overnightSpot: string;
+  overnightType?: string;
   shower: string;
   foodPlan: string;
   chargingPlan: string;
   costs: number | string;
+  highlights?: string[];
 }
 
 export interface TripItinerary {
+  title?: string;
   summary?: string;
-  climateTips?: string;
+  totalMiles?: number;
   totalEstimatedCost?: number | string;
+  climateTips?: string;
   days: DayItinerary[];
 }
 
@@ -25,6 +32,23 @@ export interface Trip {
   prompt: string;
   itinerary: TripItinerary;
   createdAt?: string;
+}
+
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+  type?: 'conversation' | 'itinerary';
+  quickReplies?: string[];
+  itinerary?: TripItinerary;
+  timestamp?: string;
+}
+
+export interface ChatResponse {
+  type: 'conversation' | 'itinerary';
+  message: string;
+  quickReplies?: string[];
+  itinerary?: TripItinerary;
+  savedTripId?: string;
 }
 
 export interface Spot {
@@ -47,12 +71,7 @@ export class ApiService {
   private http = inject(HttpClient);
   public currentUser = signal<any>(null);
 
-  // Dynamic API URL mapping
   private get apiUrl(): string {
-    const isProd = ('false' as string) === 'true';
-    if (isProd) {
-      return '/api';
-    }
     return '/api';
   }
 
@@ -90,13 +109,17 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/auth/logout`);
   }
 
-  // --- Tesla Camp Planner Endpoints ---
-  getHealth(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/health`);
+  // --- Conversational Tesla Camp Planner ---
+  chatPlan(prompt: string, history: Array<{ role: string; content: string }>): Observable<ChatResponse> {
+    return this.http.post<ChatResponse>(`${this.apiUrl}/plan`, { prompt, history });
   }
 
   generatePlan(prompt: string): Observable<Trip> {
     return this.http.post<Trip>(`${this.apiUrl}/plan`, { prompt });
+  }
+
+  getHealth(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/health`);
   }
 
   getTrips(): Observable<Trip[]> {

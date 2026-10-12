@@ -35,8 +35,6 @@ const connectMongo = require('connect-mongo');
 const MongoStore = connectMongo.default || connectMongo;
 const passport = require('passport');
 
-const { seedSpotsIfEmpty } = require('./seeds/seedSpots');
-
 const app = express();
 
 // --- Configuration ---
@@ -90,9 +88,6 @@ const connectDB = async () => {
     await dbConnectPromise;
     console.log('OK: Connected to MongoDB');
     lastDbError = null;
-    
-    // Automatically seed initial 10 unverified spots if collection is empty
-    await seedSpotsIfEmpty();
   } catch (err) {
     lastDbError = err.message;
     console.error('ERROR: MongoDB Connection Failed:', err.message);
