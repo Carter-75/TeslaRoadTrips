@@ -162,16 +162,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Sessions
-// Never run production with the dev fallback secret: it is public in the repo.
-if (isProd && !process.env.SESSION_SECRET) {
-  throw new Error('SESSION_SECRET must be set in production (Vercel/Render env vars).');
-}
-if (!isProd && !process.env.SESSION_SECRET) {
-  console.warn('WARN: Using dev-only session secret. Set SESSION_SECRET for anything public.');
+// No publicly-known fallback: without SESSION_SECRET we generate an ephemeral
+// random secret so the app still boots (sessions just won't survive restarts).
+// Set SESSION_SECRET in env vars for persistent production sessions.
+const crypto = require('crypto');
+let sessionSecret = process.env.SESSION_SECRET;
+if (!sessionSecret) {
+  console.warn('WARN: SESSION_SECRET not set; using an ephemeral random secret. Set SESSION_SECRET in production env vars for persistent sessions.');
+  sessionSecret = 'ephemeral-' + crypto.randomBytes(32).toString('hex');
 }
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || 'tesla-camp-dev-secret-NOT-for-production',
+    secret: sessionSecret,
     resave: false,
     saveUninitialized: false,
     store: mongoURI ? MongoStore.create({
