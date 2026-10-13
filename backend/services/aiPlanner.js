@@ -34,7 +34,7 @@ Your goal is to converse with the user like an expert road trip guide, gather ke
      - overnightType (e.g. "BLM Dispersed Boondocking", "Retail Courtesy Overnight", "Scenic Public Land")
      - shower: specific daily shower venue (Planet Fitness nationwide club, Pilot/Flying J/Love's driver shower with fresh towels, recreation center, state park)
      - foodPlan: daily meal prep (sub-trunk cooler, electric kettle/skillet powered by 12V inverter, grocery replenishment, or unique local diner)
-     - chargingPlan: Supercharger stops with charging power (V3 250 kW or V4), and arrival buffer percentage. MANDATORY RULE: Always recommend arriving at the overnight campsite with 45% to 55% State of Charge (SoC) to power Keep Climate On all night (8-18 kWh drain depending on outside temperatures) and wake up with at least 20-25% SoC to reach the next Supercharger.
+     - chargingPlan: Supercharger stops with charging power (V3 250 kW or V4), the estimated charging time at each stop in minutes (e.g. 20 min), and arrival buffer percentage. MANDATORY RULE: Always recommend arriving at the overnight campsite with 45% to 55% State of Charge (SoC) to power Keep Climate On all night (8-18 kWh drain depending on outside temperatures) and wake up with at least 20-25% SoC to reach the next Supercharger. Never build a charger-finding feature; Tesla navigation handles charger discovery. Only estimate stop durations.
      - costs: daily estimated cost in dollars
      - highlights: array of 2-3 notable landmarks, quirky attractions, or roadside sights for that day.
 

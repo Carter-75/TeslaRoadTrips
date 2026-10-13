@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const TripModel = require('../models/trip');
 const { chatWithTeslaPlanner, getAiClient } = require('../services/aiPlanner');
 const { dailyPlanRateLimiter } = require('../middleware/rateLimiter');
@@ -70,6 +71,8 @@ router.post(['/plan', '/chat'], dailyPlanRateLimiter, async (req, res, next) => 
 // GET /api/trips: List saved trips
 router.get('/trips', async (req, res, next) => {
   try {
+    // Graceful degradation: no DB yet means no trips, not an error
+    if (mongoose.connection.readyState !== 1) return res.json([]);
     const trips = await TripModel.find().sort({ createdAt: -1 }).limit(50);
     res.json(trips);
   } catch (err) {

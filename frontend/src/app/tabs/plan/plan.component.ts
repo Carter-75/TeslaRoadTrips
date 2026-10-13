@@ -206,6 +206,13 @@ import { OfflinePlannerService, OfflineFormData } from '../../services/offline-p
                     >
                       Save Trip
                     </button>
+                    <button
+                      type="button"
+                      (click)="shareItinerary(msg.itinerary)"
+                      class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs border border-sky-500 transition-all shrink-0 shadow-md"
+                    >
+                      Share
+                    </button>
                   </div>
 
                   <p *ngIf="msg.itinerary.summary" class="text-xs text-slate-300 leading-relaxed">
@@ -515,5 +522,36 @@ export class PlanComponent implements OnInit {
         alert(err.error?.message || 'Could not save trip to database.');
       }
     });
+  }
+
+  shareItinerary(itinerary: TripItinerary): void {
+    const title = itinerary.title || 'Tesla Camping Trip';
+    const lines: string[] = [`Tesla Camp Planner trip: ${title}`, ''];
+    (itinerary.days || []).forEach((d) => {
+      lines.push(`Day ${d.day}: ${d.title}`);
+      if (d.overnightSpot) lines.push(`  Sleep: ${d.overnightSpot}`);
+      if (d.chargingPlan) lines.push(`  Charging: ${d.chargingPlan}`);
+    });
+    if (itinerary.totalMiles) lines.push(`Total: ${itinerary.totalMiles} miles`);
+    if (itinerary.totalEstimatedCost) lines.push(`Est. cost: $${itinerary.totalEstimatedCost}`);
+    lines.push('', 'Planned with Tesla Camp Planner');
+    const text = lines.join('\n');
+    const shareData = { title, text, url: window.location.origin };
+
+    const done = (msg: string) => {
+      this.savedFeedback.set(msg);
+      setTimeout(() => this.savedFeedback.set(null), 4000);
+    };
+
+    // Native share sheet on phones: user can share straight to the Tesla app
+    if (navigator.share) {
+      navigator.share(shareData).catch(() => {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(`${text}\n${window.location.origin}`)
+        .then(() => done('Trip copied! Paste it anywhere, including your Tesla app.'))
+        .catch(() => done('Could not copy trip.'));
+    } else {
+      done('Sharing is not supported on this device.');
+    }
   }
 }

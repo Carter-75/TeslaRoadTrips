@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Spot = require('../models/spot');
 const SpotReport = require('../models/spotReport');
 
 // GET /api/spots - Query spots with state and text search
 router.get('/spots', async (req, res, next) => {
   try {
+    // Graceful degradation: no DB yet means no spots, not an error
+    if (mongoose.connection.readyState !== 1) return res.json([]);
     const { state, q } = req.query;
     const filter = {};
 

@@ -150,7 +150,9 @@ app.use(helmet({
 }));
 
 app.use(cors({
-  origin: true,
+  // In production the frontend and API share one domain, so no CORS is needed.
+  // Set CORS_ORIGIN if the frontend ever lives on a different domain.
+  origin: isProd ? (process.env.CORS_ORIGIN || false) : true,
   credentials: true
 }));
 
@@ -160,9 +162,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Sessions
+// Never run production with the dev fallback secret: it is public in the repo.
+if (isProd && !process.env.SESSION_SECRET) {
+  throw new Error('SESSION_SECRET must be set in production (Vercel/Render env vars).');
+}
+if (!isProd && !process.env.SESSION_SECRET) {
+  console.warn('WARN: Using dev-only session secret. Set SESSION_SECRET for anything public.');
+}
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || 'tesla-camp-secret-key-3948',
+    secret: process.env.SESSION_SECRET || 'tesla-camp-dev-secret-NOT-for-production',
     resave: false,
     saveUninitialized: false,
     store: mongoURI ? MongoStore.create({

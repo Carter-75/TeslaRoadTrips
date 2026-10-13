@@ -8,14 +8,14 @@ Tesla Camp Planner is a production-ready MEAN stack web app and native mobile ap
 
 The application operates as a unified, decoupled MEAN stack system:
 
-1. **Frontend Client (`frontend/` or `client/`)**:
+1. **Frontend Client (`frontend/`)**:
    - Built with Angular v21 using standalone components and reactive Signals.
    - Tailored mobile-first user experience with a 5-tab bottom navigation bar (Plan, My Trips, Spots, Guides, Budget).
    - Wrapped with **Capacitor** (`@capacitor/core`, `@capacitor/cli`) to compile and package directly as native iOS and Android apps with full splash screen and dark status bar integration.
    - PWA configured with service worker caching the application shell for offline use, web manifest, and custom app icons.
    - Includes an intelligent Offline Fallback Planner that assembles starter itineraries client-side using embedded spot data if the server AI API key is not configured.
 
-2. **Backend Server (`backend/` or `server/`)**:
+2. **Backend Server (`backend/`)**:
    - Node.js and Express REST API mounted under `/api/*`.
    - In production (Render), Express serves the static Angular production bundle (`frontend/dist/frontend`) for all client-side routes, providing a single-service deployment footprint.
    - Connects to MongoDB Atlas via Mongoose models (`Trip`, `Spot`, `SpotReport`).
